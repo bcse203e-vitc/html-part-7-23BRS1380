@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word & Character Counter</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Word & Character Counter</h2>
+      <textarea
+        id="textInput"
+        placeholder="Type something here..."
+        oninput="analyzeText()"
+      ></textarea>
+      <p>Characters: <span id="charCount">0</span></p>
+      <p>Words: <span id="wordCount">0</span></p>
+      <p>Repeated Words: <span id="repeatedWords">None</span></p>
+    </div>
+
+    <script>
+      function analyzeText() {
+        let text = document.getElementById("textInput").value.trim();
+        let charCount = text.length;
+        let words = text.toLowerCase().match(/\b\w+\b/g) || [];
+        let wordCount = words.length;
+
+        let wordMap = {};
+        let repeated = [];
+
+        words.forEach((word) => {
+          wordMap[word] = (wordMap[word] || 0) + 1;
+          if (wordMap[word] === 2) {
+            repeated.push(word);
+          }
+        });
+
+        document.getElementById("charCount").innerText = charCount;
+        document.getElementById("wordCount").innerText = wordCount;
+        document.getElementById("repeatedWords").innerHTML =
+          repeated.length > 0
+            ? `<span class="highlight">${repeated.join(", ")}</span>`
+            : "None";
+      }
+    </script>
+  </body>
+</html>
