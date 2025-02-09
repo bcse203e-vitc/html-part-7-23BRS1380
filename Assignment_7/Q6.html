@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS</title>
+    <script>
+      function findDuplicates(arr) {
+        let duplicates = [];
+        let seen = new Set();
+        let seenDuplicates = new Set();
+
+        for (let num of arr) {
+          if (seen.has(num) && !seenDuplicates.has(num)) {
+            duplicates.push(num);
+            seenDuplicates.add(num);
+          }
+          seen.add(num);
+        }
+
+        console.log("Duplicates:", duplicates);
+        return duplicates;
+      }
+
+      function removeDuplicates(arr) {
+        return [...new Set(arr)];
+      }
+      let numbers = [1, 2, 3, 4, 5, 2, 3, 6, 7, 8, 8, 9, 1];
+
+      findDuplicates(numbers);
+      console.log("Unique Array:", removeDuplicates(numbers));
+    </script>
+  </head>
+  <body></body>
+</html>

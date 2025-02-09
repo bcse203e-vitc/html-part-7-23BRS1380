@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Table Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      table {
+        width: 50%;
+        margin: 20px auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+      input,
+      button {
+        padding: 10px;
+        margin: 5px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dynamic Table Generator</h1>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter Name" />
+
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" placeholder="Enter Salary" />
+
+    <button onclick="addRow()">Add Row</button>
+
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Salary</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be added here dynamically -->
+      </tbody>
+    </table>
+
+    <script>
+      function addRow() {
+        let name = document.getElementById("name").value.trim();
+        let salary = document.getElementById("salary").value.trim();
+        let table = document
+          .getElementById("dataTable")
+          .getElementsByTagName("tbody")[0];
+
+        if (name === "" || salary === "") {
+          alert("Please enter both Name and Salary!");
+          return;
+        }
+
+        let row = table.insertRow();
+
+        let nameCell = row.insertCell(0);
+        let salaryCell = row.insertCell(1);
+        let actionCell = row.insertCell(2);
+
+        nameCell.innerText = name;
+        salaryCell.innerText = salary;
+
+        let deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
+        deleteButton.style.background = "red";
+        deleteButton.style.color = "white";
+        deleteButton.style.border = "none";
+        deleteButton.style.padding = "5px 10px";
+        deleteButton.style.cursor = "pointer";
+        deleteButton.onclick = function () {
+          table.deleteRow(row.rowIndex - 1);
+        };
+
+        actionCell.appendChild(deleteButton);
+
+        document.getElementById("name").value = "";
+        document.getElementById("salary").value = "";
+      }
+    </script>
+  </body>
+</html>
